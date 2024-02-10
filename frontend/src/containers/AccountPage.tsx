@@ -1,96 +1,96 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export const AccountPage = () => {
-  const auth = useAuth()
-  const navigate = useNavigate()
+  const auth = useAuth();
+  const navigate = useNavigate();
 
-  const [processing, setProcessing] = useState<boolean>(false)
-  const [originalPassword, setOriginalPassword] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [originalPassword, setOriginalPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const [page, setPage] = useState<number>(0)
-  const [pageSize, setPageSize] = useState<number>(10)
+  const [page, setPage] = useState<number>(0);
+  const [pageSize, setPageSize] = useState<number>(10);
 
-  const [isFetchingSessions, setFetchingSessions] = useState<boolean>(false)
+  const [isFetchingSessions, setFetchingSessions] = useState<boolean>(false);
   const [sessions, setSessions] = useState<UserSessionResponse>({
     sessions: [],
     num_pages: 1,
-  })
+  });
 
-  const [isDeleting, setDeleting] = useState<boolean>(false)
+  const [isDeleting, setDeleting] = useState<boolean>(false);
   const deleteSession = async (id: number) => {
-    setDeleting(true)
+    setDeleting(true);
 
     const response = await fetch(`/api/auth/sessions/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
-    })
+    });
 
     if (response.ok) {
       if (sessions.sessions.length === 1 && page !== 0) {
-        setPage(page - 1)
+        setPage(page - 1);
       }
-      await fetchSessions()
+      await fetchSessions();
     }
 
-    setDeleting(false)
-  }
+    setDeleting(false);
+  };
 
   const deleteAllSessions = async () => {
-    setDeleting(true)
+    setDeleting(true);
 
     const response = await fetch(`/api/auth/sessions`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
-    })
+    });
 
     if (response.ok) {
-      setPage(0)
-      await fetchSessions()
+      setPage(0);
+      await fetchSessions();
     }
 
-    setDeleting(false)
-  }
+    setDeleting(false);
+  };
 
   const fetchSessions = async () => {
-    setFetchingSessions(true)
+    setFetchingSessions(true);
 
     if (!auth.isAuthenticated) {
-      setSessions({ sessions: [], num_pages: 1 })
-      setFetchingSessions(false)
-      return
+      setSessions({ sessions: [], num_pages: 1 });
+      setFetchingSessions(false);
+      return;
     }
 
     const sessions = await (
       await fetch(`/api/auth/sessions?page=${page}&page_size=${pageSize}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       })
-    ).json()
+    ).json();
 
-    setSessions(sessions)
-    setFetchingSessions(false)
-  }
+    setSessions(sessions);
+    setFetchingSessions(false);
+  };
 
   useEffect(() => {
-    fetchSessions()
-  }, [auth.isAuthenticated, page, pageSize])
+    fetchSessions();
+  }, [auth.isAuthenticated, page, pageSize]);
 
   const changePassword = async () => {
-    setProcessing(true)
+    setProcessing(true);
     const response = await (
-      await fetch('/api/auth/change', {
-        method: 'POST',
+      await fetch("/api/auth/change", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${auth.accessToken}`,
         },
         body: JSON.stringify({
@@ -98,38 +98,36 @@ export const AccountPage = () => {
           new_password: password,
         }),
       })
-    ).json()
-    console.log(response)
-    setOriginalPassword('')
-    setPassword('')
-    setProcessing(false)
-  }
+    ).json();
+    console.log(response);
+    setOriginalPassword("");
+    setPassword("");
+    setProcessing(false);
+  };
 
   return (
-    <div style={{ textAlign: 'left' }}>
+    <div style={{ textAlign: "left" }}>
       <h1>Account</h1>
       <br />
       {auth.isAuthenticated && (
         <div>
           User # {auth.session?.userId}
-          <div className="Form" style={{ textAlign: 'left' }}>
+          <div className="Form" style={{ textAlign: "left" }}>
             <h1>Permissions</h1>
             <pre>
-              {!auth.session && (
-                <div>Error: No auth session present.</div>
-              )}
+              {!auth.session && <div>Error: No auth session present.</div>}
               {auth.session?.permissions?.map((perm) => {
-                return <div>{JSON.stringify(perm)}</div>
+                return <div>{JSON.stringify(perm)}</div>;
               })}
               {auth.session?.permissions?.length === 0 && (
                 <div>No permissions granted.</div>
               )}
             </pre>
           </div>
-          <div className="Form" style={{ textAlign: 'left' }}>
+          <div className="Form" style={{ textAlign: "left" }}>
             <h1>Change password</h1>
             <br />
-            <div style={{ display: 'flex', flexFlow: 'column' }}>
+            <div style={{ display: "flex", flexFlow: "column" }}>
               <label>Original Password</label>
               <input
                 type="password"
@@ -137,7 +135,7 @@ export const AccountPage = () => {
                 onChange={(e) => setOriginalPassword(e.target.value)}
               />
             </div>
-            <div style={{ display: 'flex', flexFlow: 'column' }}>
+            <div style={{ display: "flex", flexFlow: "column" }}>
               <label>New Password</label>
               <input
                 type="password"
@@ -145,7 +143,7 @@ export const AccountPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div style={{ display: 'flex', flexFlow: 'column' }}>
+            <div style={{ display: "flex", flexFlow: "column" }}>
               <button disabled={processing} onClick={changePassword}>
                 Change Password
               </button>
@@ -186,11 +184,11 @@ export const AccountPage = () => {
       )}
       {!auth.isAuthenticated && (
         <div>
-          <a href="#" onClick={() => navigate('/login')}>
+          <a href="#" onClick={() => navigate("/login")}>
             Login to view your account detials
           </a>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
