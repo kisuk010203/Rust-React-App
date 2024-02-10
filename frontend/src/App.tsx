@@ -37,6 +37,9 @@ const App = () => {
           { auth.isAuthenticated && <a className="NavButton" onClick={() => { auth.logout(); apollo.resetStore(); }}>Logout</a> }
           { !auth.isAuthenticated && <a className="NavButton" onClick={() => navigate('/login')}>Login/Register</a> }
         </div>
+        <div>
+          Hello World
+        </div>
       </div>
       <div style={{ margin: '0 auto', maxWidth: '800px' }}>
         <Routes>
