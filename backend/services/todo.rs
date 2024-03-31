@@ -1,6 +1,10 @@
-use actix_web::{delete, Error, get, HttpResponse, post, put, Result, web::{Data, Json, Path, Query}};
-use create_rust_app::Database;
 use crate::models::todos::{CreateTodo, Todo, UpdateTodo};
+use actix_web::{
+    delete, get, post, put,
+    web::{Data, Json, Path, Query},
+    Error, HttpResponse, Result,
+};
+use create_rust_app::Database;
 
 #[tsync::tsync]
 #[derive(serde::Deserialize)]
@@ -10,10 +14,7 @@ pub struct PaginationParams {
 }
 
 #[get("")]
-async fn index(
-    db: Data<Database>,
-    Query(info): Query<PaginationParams>,
-) -> HttpResponse {
+async fn index(db: Data<Database>, Query(info): Query<PaginationParams>) -> HttpResponse {
     let mut con = db.get_connection().unwrap();
 
     let result = Todo::paginate(&mut con, info.page, info.page_size);
@@ -26,10 +27,7 @@ async fn index(
 }
 
 #[get("/{id}")]
-async fn read(
-    db: Data<Database>,
-    item_id: Path<i32>,
-) -> HttpResponse {
+async fn read(db: Data<Database>, item_id: Path<i32>) -> HttpResponse {
     let mut con = db.get_connection().unwrap();
 
     let result = Todo::read(&mut con, item_id.into_inner());
@@ -44,10 +42,7 @@ async fn read(
 }
 
 #[post("")]
-async fn create(
-    db: Data<Database>,
-    Json(item): Json<CreateTodo>,
-) -> Result<HttpResponse, Error> {
+async fn create(db: Data<Database>, Json(item): Json<CreateTodo>) -> Result<HttpResponse, Error> {
     let mut con = db.get_connection().unwrap();
 
     let result = Todo::create(&mut con, &item).expect("Creation error");
@@ -73,10 +68,7 @@ async fn update(
 }
 
 #[delete("/{id}")]
-async fn destroy(
-    db: Data<Database>,
-    item_id: Path<i32>,
-) -> HttpResponse {
+async fn destroy(db: Data<Database>, item_id: Path<i32>) -> HttpResponse {
     let mut con = db.get_connection().unwrap();
 
     let result = Todo::delete(&mut con, item_id.into_inner());
