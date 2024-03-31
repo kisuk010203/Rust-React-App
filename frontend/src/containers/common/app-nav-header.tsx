@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import { useAuth, useAuthCheck } from "../../hooks/useAuth";
 import React from "react";
 import "../../App.css";
-import { HeaderNavButton } from "../../common/buttons/buttons";
+import { HeaderNavButton, OutlinedHeaderNavButton } from "../../common/buttons/buttons";
 
 export const AppNavHeader = () => {
     useAuthCheck();
@@ -28,7 +28,7 @@ export const AppNavHeader = () => {
                 // </HeaderNavButton>
                 <div></div>
             ) : (
-                <HeaderNavButton navigate="/login">Login</HeaderNavButton>
+                <OutlinedHeaderNavButton navigate="/login">Login</OutlinedHeaderNavButton>
             )}
         </div>
     );

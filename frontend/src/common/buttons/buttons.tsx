@@ -8,7 +8,7 @@ type HeaderNavButtonProps = {
     children: React.ReactNode;
 };
 
-const StyledButton = styled(Button)`
+const BasicButton = styled(Button)`
     height: 65px;
 `;
 
@@ -18,7 +18,18 @@ export const HeaderNavButton: React.FC<HeaderNavButtonProps> = ({
 }) => {
     return (
         <Link to={navigate}>
-            <StyledButton>{children}</StyledButton>
+            <BasicButton>{children}</BasicButton>
         </Link>
     );
 };
+
+export const OutlinedHeaderNavButton: React.FC<HeaderNavButtonProps> = ({
+    navigate,
+    children,
+}) => {
+    return (
+        <Link to={navigate}>
+            <BasicButton variant="outlined">{children}</BasicButton>
+        </Link>
+    );
+}
