@@ -9,7 +9,7 @@ type HeaderNavButtonProps = {
 };
 
 const BasicButton = styled(Button)`
-    height: 65px;
+    height: 50px;
 `;
 
 export const HeaderNavButton: React.FC<HeaderNavButtonProps> = ({
