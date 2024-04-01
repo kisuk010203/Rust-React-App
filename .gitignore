@@ -6,3 +6,5 @@
 build-log*.txt
 .DS_Store
 /.idea/
+**sqlite**
+dev.sqlite
