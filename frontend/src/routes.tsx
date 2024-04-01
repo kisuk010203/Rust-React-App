@@ -9,6 +9,7 @@ import { LoginPage } from "./containers/login-page";
 import { RecoveryPage } from "./containers/recovery-page";
 import { RegistrationPage } from "./containers/registration-page";
 import { ResetPage } from "./containers/reset-page";
+import { CalendarPage } from "./containers/calendar-page";
 
 export const AppRoutes: React.FC = () => {
     return (
@@ -22,6 +23,7 @@ export const AppRoutes: React.FC = () => {
             <Route path="/activate" element={<ActivationPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
     );
 }
