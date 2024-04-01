@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useQueryParam } from "../hooks/useQueryParam";
+import { Page, PageHeader } from "../common/ui/pages";
 
 export const ActivationPage = () => {
   const auth = useAuth();
@@ -27,8 +28,8 @@ export const ActivationPage = () => {
   };
 
   return (
-    <div className="Form" style={{ textAlign: "left" }}>
-      <h1>Activate</h1>
+    <Page>
+      <PageHeader>Account Activation</PageHeader>
       <br />
       <div style={{ display: "flex", flexFlow: "column" }}>
         <label>Activation Token</label>
@@ -43,6 +44,6 @@ export const ActivationPage = () => {
           Activate
         </button>
       </div>
-    </div>
+    </Page>
   );
 };

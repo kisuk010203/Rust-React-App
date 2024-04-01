@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Page, PageHeader } from "../common/ui/pages";
 
 export const RecoveryPage = () => {
   const auth = useAuth();
@@ -30,8 +31,8 @@ export const RecoveryPage = () => {
   }
 
   return (
-    <div className="Form" style={{ textAlign: "left" }}>
-      <h1>Account Recovery</h1>
+    <Page>
+      <PageHeader>Account Recovery</PageHeader>
       <br />
       <div style={{ display: "flex", flexFlow: "column" }}>
         <label>Email</label>
@@ -42,6 +43,6 @@ export const RecoveryPage = () => {
           Recover
         </button>
       </div>
-    </div>
+    </Page>
   );
 };

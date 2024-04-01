@@ -34,6 +34,7 @@ code {
   color: white;
   height: 65px;
   padding: 0 30px;
+  margin-top: 20px;
   justify-content: space-between;
   align-items: flex-start;
 }

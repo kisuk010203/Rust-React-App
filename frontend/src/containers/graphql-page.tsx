@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useAuth } from "../hooks/useAuth";
+import { Page, PageHeader } from "../common/ui/pages";
 
 const PING = gql`
   query Ping {
@@ -18,8 +19,8 @@ export const GraphQLPage = () => {
   console.log("Response from server:", pong.loading ? "loading" : pong.data);
 
   return (
-    <div style={{ height: "100%", fontSize: "1rem", textAlign: "left" }}>
-      <h1>GraphQL</h1>
+    <Page>
+      <PageHeader>GraphQL</PageHeader>
 
       <h4>Query:</h4>
       <pre>{`query Ping {\n  ping\n}`}</pre>
@@ -35,6 +36,6 @@ export const GraphQLPage = () => {
       <p>
         <a href={"/graphql"}>Visit Playground</a>
       </p>
-    </div>
+    </Page>
   );
 };

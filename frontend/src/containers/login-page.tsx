@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Page, PageHeader } from "../common/ui/pages";
 
 export const LoginPage = () => {
   const auth = useAuth();
@@ -21,8 +22,8 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="Form" style={{ textAlign: "left" }}>
-      <h1>Login</h1>
+    <Page>
+      <PageHeader>Login</PageHeader>
       <br />
       <div style={{ display: "flex", flexFlow: "column" }}>
         <label>Email</label>
@@ -55,6 +56,6 @@ export const LoginPage = () => {
       >
         Forgot your password? Click here to recover your account.
       </a>
-    </div>
+    </Page>
   );
 };

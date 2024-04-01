@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Page, PageHeader } from "../common/ui/pages";
 
 export const AccountPage = () => {
   const auth = useAuth();
@@ -106,8 +107,8 @@ export const AccountPage = () => {
   };
 
   return (
-    <div style={{ textAlign: "left" }}>
-      <h1>Account</h1>
+    <Page>
+      <PageHeader>Account</PageHeader>
       <br />
       {auth.isAuthenticated && (
         <div>
@@ -185,10 +186,10 @@ export const AccountPage = () => {
       {!auth.isAuthenticated && (
         <div>
           <a href="#" onClick={() => navigate("/login")}>
-            Login to view your account detials
+            Login to view your account details
           </a>
         </div>
       )}
-    </div>
+    </Page>
   );
 };

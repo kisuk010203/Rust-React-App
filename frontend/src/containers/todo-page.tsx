@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Page, PageHeader } from "../common/ui/pages";
 
 const TodoAPI = {
   get: async (page: number, size: number) =>
@@ -92,8 +93,8 @@ export const Todos = () => {
   }, [createdTodo]);
 
   return (
-    <div style={{ display: "flex", flexFlow: "column", textAlign: "left" }}>
-      <h1>Todos</h1>
+    <Page>
+      <PageHeader>Todos</PageHeader>
       {(!todos || todos.total_items === 0) && "No todos, create one!"}
       {todos?.items.map((todo) =>
         todo.id === selectedTodo?.id ? (
@@ -176,6 +177,6 @@ export const Todos = () => {
           >{`>>`}</button>
         </div>
       </div>
-    </div>
+    </Page>
   );
 };

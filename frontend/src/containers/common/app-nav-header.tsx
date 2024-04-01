@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import { useAuth, useAuthCheck } from "../../hooks/useAuth";
 import React from "react";
 import "../../App.css";
-import { HeaderNavButton, OutlinedHeaderNavButton } from "../../common/buttons/buttons";
+import { HeaderNavButton, OutlinedHeaderNavButton } from "../../common/ui/buttons";
 
 export const AppNavHeader = () => {
     useAuthCheck();

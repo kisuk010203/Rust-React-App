@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Page, PageHeader } from "../common/ui/pages";
 
 export const RegistrationPage = () => {
   const auth = useAuth();
@@ -26,8 +27,8 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <div className="Form" style={{ textAlign: "left" }}>
-      <h1>Registration</h1>
+    <Page>
+    <PageHeader>Registration</PageHeader>
       <br />
       <div style={{ display: "flex", flexFlow: "column" }}>
         <label>Email</label>
@@ -60,6 +61,41 @@ export const RegistrationPage = () => {
       >
         Need to activate your account? Click here.
       </a>
-    </div>
+    </Page>
+    // <div className="Form" style={{ textAlign: "left" }}>
+    //   <h1>Registration</h1>
+    //   <br />
+    //   <div style={{ display: "flex", flexFlow: "column" }}>
+    //     <label>Email</label>
+    //     <input value={email} onChange={(e) => setEmail(e.target.value)} />
+    //   </div>
+    //   <div style={{ display: "flex", flexFlow: "column" }}>
+    //     <label>Password</label>
+    //     <input
+    //       type="password"
+    //       value={password}
+    //       onChange={(e) => setPassword(e.target.value)}
+    //     />
+    //   </div>
+    //   <div style={{ display: "flex", flexFlow: "column" }}>
+    //     <button disabled={processing} onClick={register}>
+    //       Register
+    //     </button>
+    //   </div>
+    //   <a
+    //     style={{ marginTop: "30px" }}
+    //     href="#"
+    //     onClick={() => navigate("/login")}
+    //   >
+    //     Already have an account? Click here to login.
+    //   </a>
+    //   <a
+    //     style={{ marginTop: "30px" }}
+    //     href="#"
+    //     onClick={() => navigate("/activate")}
+    //   >
+    //     Need to activate your account? Click here.
+    //   </a>
+    // </div>
   );
 };
