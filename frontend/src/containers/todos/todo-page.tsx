@@ -11,7 +11,7 @@ import {
     ShortButton,
 } from "../../common/ui/buttons";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import { TodoItem } from "../../common/ui/todos";
+import { TodoItem } from "./todos";
 import TextField from "@material-ui/core/TextField";
 
 const TodoAPI = {

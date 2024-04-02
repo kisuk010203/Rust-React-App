@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Page, PageHeader } from "../common/ui/pages";
 import { DeleteButton, EditButton } from "../common/ui/buttons";
-import { TodoItem } from "../common/ui/todos";
+import { TodoItem } from "./todos/todos";
 
 const TodoAPI = {
     get: async (page: number, size: number) =>
@@ -46,7 +46,7 @@ export const CalendarPage = () => {
         setCreatedTodo(createdTodo);
         setText("");
         setProcessing(false);
-    };    
+    };
 
     useEffect(() => {
         setText(selectedTodo?.text || "");
