@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -18,10 +19,8 @@ type DisabledButtonProps = {
 export const BasicButton = styled(Button)`
     height: 50px;
 `;
-const ShortButton = styled(Button)`
+export const ShortButton = styled(Button)`
     height: 30px;
-    margin-right: 20px;
-    margin-bottom: 20px;
 `;
 
 export const HeaderNavButton: React.FC<HeaderNavButtonProps> = ({
@@ -79,6 +78,34 @@ export const EditButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
         </>
     );
 };
+
+export const SaveButton: React.FC<{onClick: () => void}> = ({onClick})  => {
+    return (
+        <>
+            <ShortButton
+                variant="outlined"
+                color="primary"
+                startIcon={<SaveAltIcon />}
+                onClick={onClick}
+            >Save</ShortButton>
+            &nbsp;&nbsp;
+        </>
+    )
+}
+
+export const CancelButton: React.FC<{onClick: () => void}> = ({onClick}) => {   
+    return (
+        <>
+            <ShortButton
+                variant="outlined"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={onClick}
+            >Cancel</ShortButton>
+            &nbsp;&nbsp;
+        </>
+    )
+}
 
 export const DisabledButton: React.FC<DisabledButtonProps> = ({
     onClick,

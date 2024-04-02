@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Page, PageHeader } from "../common/ui/pages";
 import {
     BasicButton,
+    CancelButton,
     DeleteButton,
     EditButton,
     LeftButton,
     RightButton,
+    SaveButton,
+    ShortButton,
 } from "../common/ui/buttons";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { TodoItem } from "../common/ui/todos";
@@ -110,40 +113,36 @@ export const Todos = () => {
             {(!todos || todos.total_items === 0) && "No todos, create one!"}
             {todos?.items.map((todo) =>
                 todo.id === selectedTodo?.id ? (
-                    <div key="form" className="Form">
-                        <div style={{ display: "flex" }}>
-                            <input
-                                style={{ flex: 1 }}
-                                value={text}
-                                onChange={(e) => setText(e.target.value)}
-                            />
-                            <button
-                                disabled={processing}
-                                style={{ height: "40px" }}
-                                onClick={() => updateTodo(todo)}
-                            >
-                                Save
-                            </button>
-                            <button
-                                disabled={processing}
-                                style={{ height: "40px" }}
-                                onClick={() => editTodo(null)}
-                            >
-                                Cancel
-                            </button>
+                    <div style={{ flex: 1, marginBottom: 20}}>
+                        <div style={{ flex: 1, marginBottom: 10 }}>
+                            <span style={{ fontWeight: "bold" }}>
+                                #{todo.id}
+                            </span>
                         </div>
+                        <TextField
+                            fullWidth
+                            id="text_edit"
+                            label="Edit todo"
+                            variant="filled"
+                            value={text}
+                            margin="normal"
+                            onChange={(e) => setText(e.target.value)}
+                        />
+
+                        <SaveButton onClick={() => updateTodo(todo)} />
+                        <CancelButton onClick={() => editTodo(null)} />
                     </div>
                 ) : (
-                    <div className="Form">
+                    <div>
                         <TodoItem todo={todo} />
-                        <div>
+                        <div style={{ marginBottom: "20px" }}>
                             <EditButton onClick={() => editTodo(todo)} />
                             <DeleteButton onClick={() => deleteTodo(todo)} />
                         </div>
                     </div>
                 )
             )}
-            <div style={{marginBottom: "20px"}}></div>
+            <div style={{ marginBottom: "20px" }}></div>
             {creatingTodo ? (
                 <div>
                     <TextField
@@ -156,7 +155,7 @@ export const Todos = () => {
                         onChange={(e) => {
                             setText(e.target.value);
                         }}
-                    ></TextField>
+                    />
                     <BasicButton
                         variant="outlined"
                         color="primary"
@@ -166,6 +165,16 @@ export const Todos = () => {
                         }}
                     >
                         Add
+                    </BasicButton>
+                    &nbsp;&nbsp;
+                    <BasicButton
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => {
+                            setCreatingTodo(false);
+                        }}
+                    >
+                        Cancel
                     </BasicButton>
                 </div>
             ) : (
