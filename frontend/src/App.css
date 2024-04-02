@@ -77,11 +77,9 @@ body {
   width: 40px;
   height: 18px;
 }
+
 .Button{
-  background-color: white;
-  border: 3px solid rgb(0, 86, 49);
-  border-radius: 8px;
-  color: rgb(0, 86, 49);
+  margin: 30px;
 }
 
 .HeaderNavButton {

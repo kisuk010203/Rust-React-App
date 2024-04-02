@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Page, PageHeader } from "../common/ui/pages";
 import {
+    BasicButton,
     DeleteButton,
     EditButton,
     LeftButton,
     RightButton,
 } from "../common/ui/buttons";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import { TodoItem } from "../common/ui/todos";
+import TextField from "@material-ui/core/TextField";
 
 const TodoAPI = {
     get: async (page: number, size: number) =>
@@ -35,6 +38,7 @@ const TodoAPI = {
 
 export const Todos = () => {
     const [text, setText] = useState<string>("");
+    const [creatingTodo, setCreatingTodo] = useState<boolean>(false);
     const [selectedTodo, editTodo] = useState<Todo | null>(null);
     const [todos, setTodos] = useState<PaginationResult<Todo>>();
     const [createdTodo, setCreatedTodo] = useState<Todo>();
@@ -42,7 +46,8 @@ export const Todos = () => {
     const [page, setPage] = useState<number>(0);
     const [numPages, setPages] = useState<number>(1);
     const [processing, setProcessing] = useState<boolean>(false);
-
+    console.log(creatingTodo);
+    console.log("Text  :", text);
     const createTodo = async (todo: string) => {
         setProcessing(true);
         let createdTodo = await TodoAPI.create(todo);
@@ -138,28 +143,44 @@ export const Todos = () => {
                     </div>
                 )
             )}
-            {selectedTodo === null && (
-                <div className="Form">
-                    <div style={{ display: "flex" }}>
-                        <input
-                            style={{ flex: 1 }}
-                            placeholder="New todo..."
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    createTodo(text);
-                                }
-                            }}
-                        />
-                        <button
-                            disabled={processing}
-                            style={{ height: "40px" }}
-                            onClick={() => createTodo(text)}
-                        >
-                            Add
-                        </button>
-                    </div>
+            <div style={{marginBottom: "20px"}}></div>
+            {creatingTodo ? (
+                <div>
+                    <TextField
+                        fullWidth
+                        id="text"
+                        label="New todo"
+                        variant="filled"
+                        value={text}
+                        margin="normal"
+                        onChange={(e) => {
+                            setText(e.target.value);
+                        }}
+                    ></TextField>
+                    <BasicButton
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => {
+                            setCreatingTodo(false);
+                            createTodo(text);
+                        }}
+                    >
+                        Add
+                    </BasicButton>
+                </div>
+            ) : (
+                <div>
+                    <BasicButton
+                        className="Button"
+                        variant="outlined"
+                        startIcon={<AddBoxIcon />}
+                        onClick={() => {
+                            setCreatingTodo(true);
+                        }}
+                        // sx={{ height: "50px" }}
+                    >
+                        Add new Todo
+                    </BasicButton>
                 </div>
             )}
             <div className="Form">

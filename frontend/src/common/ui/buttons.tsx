@@ -15,12 +15,13 @@ type DisabledButtonProps = {
     children?: React.ReactNode;
 };
 
-const BasicButton = styled(Button)`
+export const BasicButton = styled(Button)`
     height: 50px;
 `;
 const ShortButton = styled(Button)`
     height: 30px;
     margin-right: 20px;
+    margin-bottom: 20px;
 `;
 
 export const HeaderNavButton: React.FC<HeaderNavButtonProps> = ({
