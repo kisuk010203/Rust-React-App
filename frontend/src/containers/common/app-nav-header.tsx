@@ -14,7 +14,7 @@ export const AppNavHeader = () => {
             <div style={{ display: "flex", flex: 1 }}>
                 <HeaderNavButton navigate="/">Home</HeaderNavButton>
                 <HeaderNavButton navigate="todos">Todos</HeaderNavButton>
-                <HeaderNavButton navigate="calendar">Caledar</HeaderNavButton>
+                <HeaderNavButton navigate="calendar">Calendar</HeaderNavButton>
                 <HeaderNavButton navigate="gql">GraphQL</HeaderNavButton>
                 <HeaderNavButton navigate="account">Account</HeaderNavButton>
             </div>
