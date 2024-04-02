@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Page, PageHeader } from "../common/ui/pages";
+import { Page, PageHeader } from "../../common/ui/pages";
 import {
     BasicButton,
     CancelButton,
@@ -9,9 +9,9 @@ import {
     RightButton,
     SaveButton,
     ShortButton,
-} from "../common/ui/buttons";
+} from "../../common/ui/buttons";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import { TodoItem } from "../common/ui/todos";
+import { TodoItem } from "../../common/ui/todos";
 import TextField from "@material-ui/core/TextField";
 
 const TodoAPI = {
@@ -49,8 +49,6 @@ export const Todos = () => {
     const [page, setPage] = useState<number>(0);
     const [numPages, setPages] = useState<number>(1);
     const [processing, setProcessing] = useState<boolean>(false);
-    console.log(creatingTodo);
-    console.log("Text  :", text);
     const createTodo = async (todo: string) => {
         setProcessing(true);
         let createdTodo = await TodoAPI.create(todo);
@@ -113,7 +111,7 @@ export const Todos = () => {
             {(!todos || todos.total_items === 0) && "No todos, create one!"}
             {todos?.items.map((todo) =>
                 todo.id === selectedTodo?.id ? (
-                    <div style={{ flex: 1, marginBottom: 20}}>
+                    <div style={{ flex: 1, marginBottom: 20 }}>
                         <div style={{ flex: 1, marginBottom: 10 }}>
                             <span style={{ fontWeight: "bold" }}>
                                 #{todo.id}
@@ -178,19 +176,21 @@ export const Todos = () => {
                     </BasicButton>
                 </div>
             ) : (
-                <div>
-                    <BasicButton
-                        className="Button"
-                        variant="outlined"
-                        startIcon={<AddBoxIcon />}
-                        onClick={() => {
-                            setCreatingTodo(true);
-                        }}
-                        // sx={{ height: "50px" }}
-                    >
-                        Add new Todo
-                    </BasicButton>
-                </div>
+                page === numPages - 1 && (
+                    <div>
+                        <BasicButton
+                            className="Button"
+                            variant="outlined"
+                            startIcon={<AddBoxIcon />}
+                            onClick={() => {
+                                setCreatingTodo(true);
+                            }}
+                            // sx={{ height: "50px" }}
+                        >
+                            Add new Todo
+                        </BasicButton>
+                    </div>
+                )
             )}
             <div className="Form">
                 <div style={{ display: "flex" }}>

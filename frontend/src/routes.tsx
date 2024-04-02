@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./containers/home-page";
-import { Todos } from "./containers/todo-page";
+import { Todos } from "./containers/todos/todo-page";
 import { GraphQLPage } from "./containers/graphql-page";
 import { AccountPage } from "./containers/account-page";
 import { ActivationPage } from "./containers/activation-page";
@@ -26,4 +26,4 @@ export const AppRoutes: React.FC = () => {
             <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
     );
-}
+};
