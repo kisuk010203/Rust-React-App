@@ -13,6 +13,7 @@ import {
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { TodoItem } from "./todos";
 import TextField from "@material-ui/core/TextField";
+import { TodoDeleteModal } from "./todo-delete-modal";
 
 const TodoAPI = {
     get: async (page: number, size: number) =>
@@ -40,12 +41,15 @@ const TodoAPI = {
 };
 
 export const Todos = () => {
+    const pageSize = 5;
+
     const [text, setText] = useState<string>("");
     const [creatingTodo, setCreatingTodo] = useState<boolean>(false);
+    const [deletingTodo, setDeletingTodo] = useState<boolean>(false);
+    const [deleteTargetTodo, setDeleteTargetTodo] = useState<Todo | null>(null);
     const [selectedTodo, editTodo] = useState<Todo | null>(null);
     const [todos, setTodos] = useState<PaginationResult<Todo>>();
     const [createdTodo, setCreatedTodo] = useState<Todo>();
-    const pageSize = 5;
     const [page, setPage] = useState<number>(0);
     const [numPages, setPages] = useState<number>(1);
     const [processing, setProcessing] = useState<boolean>(false);
@@ -73,6 +77,7 @@ export const Todos = () => {
         await TodoAPI.delete(todo.id);
         setTodos(await TodoAPI.get(page, pageSize));
         setProcessing(false);
+        setDeletingTodo(false);
     };
 
     useEffect(() => {
@@ -135,7 +140,13 @@ export const Todos = () => {
                         <TodoItem todo={todo} />
                         <div style={{ marginBottom: "20px" }}>
                             <EditButton onClick={() => editTodo(todo)} />
-                            <DeleteButton onClick={() => deleteTodo(todo)} />
+                            <DeleteButton
+                                onClick={() => {
+                                    setDeleteTargetTodo(todo);
+                                    console.log(selectedTodo);
+                                    setDeletingTodo(true);
+                                }}
+                            />
                         </div>
                     </div>
                 )
@@ -176,7 +187,7 @@ export const Todos = () => {
                     </BasicButton>
                 </div>
             ) : (
-                page === numPages - 1 && (
+                (numPages === 0 || page === numPages - 1) && (
                     <div>
                         <BasicButton
                             className="Button"
@@ -207,6 +218,13 @@ export const Todos = () => {
                     />
                 </div>
             </div>
+            <TodoDeleteModal
+                deleteModal={deletingTodo}
+                setDeleteModal={setDeletingTodo}
+                deleteTodo={() => {
+                    deleteTodo(deleteTargetTodo!);
+                }}
+            />
         </Page>
     );
 };
